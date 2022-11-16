@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_flutter/components/drawer.dart';
 import 'package:local_flutter/models/cart.dart';
 import './components/product_lists.dart';
 
@@ -71,70 +72,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100, // Set this height
-        flexibleSpace: Container(
-          padding: const EdgeInsets.fromLTRB(8, 40, 8, 20),
-          color: Colors.yellow,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: Colors.yellow,
+            bottom: const TabBar(
+              indicatorColor: Colors.black,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(
+                  text: "SIAK-NG",
+                ),
+                Tab(text: "SCELE"),
+                Tab(text: "Tanggal Penting"),
+              ],
+            ),
+            title: const Text('News Feed',
+                style: TextStyle(fontSize: 24, color: Colors.black)),
+          ),
+          drawer: const DrawerCustom(),
+          body: const TabBarView(
             children: [
-              Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  const Icon(
-                    Icons.menu,
-                    size: 30,
-                  ),
-                  const SizedBox(width: 10),
-                  // ignore: prefer_const_constructors
-                  const Text(
-                    'News Feed',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  const Text(
-                    'SIAK-NG',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  const Text(
-                    'SCELE',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  const Text(
-                    'Tanggal Penting',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
+              Icon(Icons.directions_car),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_bike),
             ],
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ProductList(_carts), //TAMBAHKAN BAGIAN INI
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
