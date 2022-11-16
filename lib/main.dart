@@ -33,8 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   final List<Cart> _carts = [
     //SEBAGAI PERMULAAN, KITA TAMBAHKAN DUA BUAH DATA DUMMY
     Cart(
@@ -64,12 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
         qty: '(Universitas Indonesia)'),
   ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,6 +69,17 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  // do something
+                },
+              )
+            ],
             iconTheme: const IconThemeData(color: Colors.black),
             backgroundColor: Colors.yellow,
             bottom: const TabBar(
@@ -95,11 +98,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 24, color: Colors.black)),
           ),
           drawer: const DrawerCustom(),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              const Icon(Icons.directions_car),
+              const Icon(Icons.directions_transit),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ProductList(_carts), //TAMBAHKAN BAGIAN INI
+                  ],
+                ),
+              ),
             ],
           ),
         ),
