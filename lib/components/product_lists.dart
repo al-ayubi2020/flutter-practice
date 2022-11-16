@@ -23,38 +23,60 @@ class ProductList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (context, index) {
                 //DIDALAM BUILDER INI WIDGET AKAN DILOOPING BERDASARKAN JUMLAH DATA, DAN INDEX ARRAYNYA AKAN DIUPDATE KE DALAM VARIABLE INDEX
-                return Container(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                return GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: Text(carts[index].title),
+                                content: Text(carts[index].qty),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancel'),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ));
+                    },
                     child: Container(
-                      padding: const EdgeInsets.fromLTRB(30, 5, 30, 5),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(width: 3.0, color: Colors.black),
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(30, 5, 30, 5),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(width: 3.0, color: Colors.black),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Row(
                             children: <Widget>[
-                              Text(
-                                carts[index].title,
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                              Text(
-                                carts[index].qty,
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                              Text(
-                                carts[index].harga,
-                                style: const TextStyle(fontSize: 24),
-                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    carts[index].title,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                  Text(
+                                    carts[index].qty,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                  Text(
+                                    carts[index].harga,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
-                    ));
+                          ),
+                        )));
               },
               itemCount: carts
                   .length, //JUMLAH ITEMNYA BERDASARKAN JUMLAH DATA YANG ADA DI DALAM CARTS
